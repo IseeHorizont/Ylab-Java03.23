@@ -12,9 +12,6 @@ public class Guess {
         int number = new Random().nextInt(99) + 1; // здесь загадывается число от 1 до 99
         int maxAttempts = 10; // здесь задается количество попыток
 
-        // TODO cheat
-        System.out.println(number);
-
         System.out.println(String.format("Я загадал число от 1 до 99. У тебя %s попыток угадать.",
                 maxAttempts));
 
