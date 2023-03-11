@@ -1,4 +1,4 @@
-package homework2.src.com.ylab.tasks.sequences;
+package homework2.src.main.java.com.ylab.tasks.sequences;
 
 import java.util.stream.Stream;
 
