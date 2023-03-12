@@ -8,8 +8,7 @@ public class SnilsValidatorImpl implements SnilsValidator{
 
         if (snils.contains(" ")) {
             snils = snils.replaceAll(" ", "");
-        }
-        if (snils.contains("-")) {
+        } else if (snils.contains("-")) {
             snils = snils.replaceAll("-", "");
         }
 
