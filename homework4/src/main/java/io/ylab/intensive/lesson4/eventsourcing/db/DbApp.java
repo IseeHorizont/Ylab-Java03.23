@@ -8,11 +8,13 @@ import io.ylab.intensive.lesson4.DbUtil;
 import io.ylab.intensive.lesson4.RabbitMQUtil;
 
 public class DbApp {
+
   public static void main(String[] args) throws Exception {
     DataSource dataSource = initDb();
     ConnectionFactory connectionFactory = initMQ();
 
-    // тут пишем создание и запуск приложения работы с БД
+    DataProcessor dataProcessor = new DataProcessor(dataSource, connectionFactory);
+    dataProcessor.processing();
   }
   
   private static ConnectionFactory initMQ() throws Exception {
@@ -22,7 +24,7 @@ public class DbApp {
   private static DataSource initDb() throws SQLException {
     String ddl = "" 
                      + "drop table if exists person;" 
-                     + "create if not exists table person (\n"
+                     + "create table if not exists person (\n"
                      + "person_id bigint primary key,\n"
                      + "first_name varchar,\n"
                      + "last_name varchar,\n"

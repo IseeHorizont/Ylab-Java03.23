@@ -1,6 +1,8 @@
-package io.ylab.intensive.lesson4.eventsourcing;
+package io.ylab.intensive.lesson4.eventsourcing.data;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
   private Long id;
   private String name;
   private String lastName;
@@ -46,5 +48,11 @@ public class Person {
 
   public void setMiddleName(String middleName) {
     this.middleName = middleName;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("id=%s, name=%s, lastName=%s, middleName=%s",
+            id, name, lastName, middleName);
   }
 }
