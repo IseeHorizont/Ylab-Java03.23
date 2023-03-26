@@ -1,17 +1,27 @@
 package io.ylab.intensive.lesson4.filesort;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import io.ylab.intensive.lesson4.DbUtil;
 
 public class FileSorterTest {
-  public static void main(String[] args) throws SQLException {
+  public static void main(String[] args) throws SQLException, IOException {
     DataSource dataSource = initDb();
-    File data = new File("data.txt");
+
+    int count = 1_000_000;
+    File data = new Generator().generate("homework4/data.txt", count);
     FileSorter fileSorter = new FileSortImpl(dataSource);
-    File res = fileSorter.sort(data);
+
+    long startTime = System.currentTimeMillis();
+    File sortedFile = fileSorter.sort(data);
+
+    System.out.printf("Took time for sorting %s lines file: about %d sec.%n",
+            count, (System.currentTimeMillis() - startTime) / 1000);
+    System.out.printf("Is the file sorted in desc order after sorting? - %s %n",
+            new Validator(sortedFile).isSortedDesc());
   }
   
   public static DataSource initDb() throws SQLException {
