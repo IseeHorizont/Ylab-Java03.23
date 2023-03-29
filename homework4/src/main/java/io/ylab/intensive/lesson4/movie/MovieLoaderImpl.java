@@ -1,8 +1,9 @@
 package io.ylab.intensive.lesson4.movie;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Scanner;
 import javax.sql.DataSource;
 
@@ -20,11 +21,15 @@ public class MovieLoaderImpl implements MovieLoader {
 
   @Override
   public void loadData(File file) {
-    try(Scanner scanner = new Scanner(file)) {
-      scanner.nextLine(); // skip column names line
-      scanner.nextLine(); // skip datatype line
-      while (scanner.hasNextLine()) {
-        String[] currentReadLine = scanner.nextLine().split(";");
+    try(BufferedReader bufferedReader = new BufferedReader(
+            new InputStreamReader(new FileInputStream(file)))) {
+      // skip line with column names
+      bufferedReader.readLine();
+      // skip line with datatype
+      bufferedReader.readLine();
+      String line = null;
+      while ((line = bufferedReader.readLine()) != null) {
+        String[] currentReadLine = line.split(";");
         Movie currentMovie = new Movie();
         currentMovie.setYear(currentReadLine[0].isEmpty() ? null : Integer.parseInt(currentReadLine[0]));
         currentMovie.setLength(currentReadLine[1].isEmpty() ? null : Integer.parseInt(currentReadLine[1]));
@@ -38,7 +43,7 @@ public class MovieLoaderImpl implements MovieLoader {
 
         writeMovieInDB(currentMovie);
       }
-    } catch (FileNotFoundException ex) {
+    } catch (IOException ex) {
       System.out.println(ex.getMessage());
     }
   }
