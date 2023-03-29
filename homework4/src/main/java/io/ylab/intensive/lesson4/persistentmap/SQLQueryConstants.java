@@ -19,4 +19,7 @@ public class SQLQueryConstants {
 
     public static final String deleteAllQuery
             = "delete from persistent_map where map_name=?;";
+
+    public static final String updateValueByKey
+            = "update persistent_map set value=? where map_name=? and KEY=?";
 }

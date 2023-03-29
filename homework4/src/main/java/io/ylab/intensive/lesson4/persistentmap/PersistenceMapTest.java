@@ -19,13 +19,18 @@ public class PersistenceMapTest {
     String testKeySecond = "test key 2";
     String testValueSecond = "test value 2";
 
-
     System.out.printf("%nContains key '%s': %s%n",
             "wrong key", persistentMap.containsKey("wrong key"));
 
     // put test pair
     persistentMap.put(testKeyFirst, testValueFirst);
     persistentMap.put(testKeySecond, testValueSecond);
+
+    // update
+    persistentMap.put("key for update", "old value");
+    System.out.println("Before update: " + persistentMap.get("key for update"));
+    persistentMap.put("key for update", "updated value");
+    System.out.println("After update: " + persistentMap.get("key for update"));
 
     // is there contains test key in map?
     System.out.printf("%nContains key '%s': %s%n",

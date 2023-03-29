@@ -94,15 +94,27 @@ public class PersistentMapImpl implements PersistentMap {
 
   @Override
   public void put(String key, String value) throws SQLException {
-    try (Connection connection = dataSource.getConnection();
-         PreparedStatement preparedStatement
-                 = connection.prepareStatement(SQLQueryConstants.insertNewPairQuery)
-    ) {
-      preparedStatement.setString(1, currentMapName);
-      preparedStatement.setString(2, key);
-      preparedStatement.setString(3, value);
-
-      preparedStatement.execute();
+    try (Connection connection = dataSource.getConnection()) {
+      if (containsKey(key)) {
+        try (PreparedStatement preparedStatement
+                = connection.prepareStatement(SQLQueryConstants.updateValueByKey)
+        ) {
+          preparedStatement.setString(1, value);
+          preparedStatement.setString(2, currentMapName);
+          preparedStatement.setString(3, key);
+          preparedStatement.execute();
+        }
+      }
+      else {
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement(SQLQueryConstants.insertNewPairQuery)
+        ) {
+          preparedStatement.setString(1, currentMapName);
+          preparedStatement.setString(2, key);
+          preparedStatement.setString(3, value);
+          preparedStatement.execute();
+        }
+      }
     }
   }
 
