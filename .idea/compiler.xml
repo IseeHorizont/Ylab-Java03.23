@@ -6,12 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="homework4" />
+        <module name="ylab-lesson4-practice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="homework4" target="11" />
-      <module name="ylab-lesson4-practice" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
