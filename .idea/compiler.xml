@@ -11,6 +11,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="homework4" target="11" />
+      <module name="ylab-lesson4-practice" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
